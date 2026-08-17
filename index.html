@@ -44,6 +44,14 @@ input,select{width:100%;background:#0b1220;color:var(--text);border:1px solid va
 .bar{height:8px;background:#202b40;border-radius:99px;overflow:hidden}.bar i{display:block;height:100%;background:var(--good);width:0%}
 .goal{border-left:3px solid var(--accent);padding:11px 12px;background:#0d1424;border-radius:0 12px 12px 0;margin-bottom:8px;font-size:13px}
 .tip{color:var(--muted);font-size:12px;line-height:1.6}
+.exercise-card{background:#0c1423;border:1px solid #26334b;border-radius:15px;padding:13px;margin-bottom:10px}
+.exercise-head{display:flex;justify-content:space-between;gap:8px;font-weight:800;font-size:14px}
+.pill{font-size:10px;color:#c8d4ea;background:#17243a;border:1px solid #2b3b58;border-radius:999px;padding:4px 7px;white-space:nowrap}
+.exercise-desc{font-size:12px;line-height:1.6;color:#c0c9d8;margin:8px 0}
+.video-link{display:inline-block;color:#9eb4ff;text-decoration:none;font-size:12px;font-weight:800;margin-bottom:7px}
+.coach-tip{font-size:11px;line-height:1.55;color:#8f9caf}
+.safety{background:#14151a;border:1px solid #3b3a2c;border-radius:14px;padding:12px;font-size:11px;line-height:1.75;margin-top:10px}
+
 nav{position:fixed;bottom:0;left:0;right:0;background:rgba(7,11,22,.94);backdrop-filter:blur(14px);border-top:1px solid var(--line);display:flex;justify-content:center;z-index:10}
 .nav-inner{max-width:560px;width:100%;display:grid;grid-template-columns:repeat(3,1fr);padding:8px 12px env(safe-area-inset-bottom)}
 nav button{background:transparent;border:0;color:var(--muted);padding:8px 4px;font-size:11px}nav button.active{color:var(--text);background:transparent}
@@ -56,10 +64,20 @@ nav button{background:transparent;border:0;color:var(--muted);padding:8px 4px;fo
 <div class="app">
   <header>
     <div><div class="brand">66 → 62</div><div class="sub">12周生活型减脂 Coach</div></div>
-    <div class="badge" id="weekBadge">Week 1</div>
+    <div style="text-align:right"><div class="badge" id="weekBadge">Week 1</div><div class="sub" style="margin-top:5px">Prototype · 本机保存</div></div>
   </header>
 
-  <main id="home" class="page active">
+  
+<section class="card" id="safetyBanner" style="margin-bottom:14px;border-color:#3b3a2c">
+  <div style="font-weight:800;margin-bottom:6px">🛡️ 开始前先看：这是你的安全版起点</div>
+  <div class="tip">
+    你目前有腰痛、脚板不适和肩颈紧绷，所以第一阶段不追求强度。动作以“舒服、可控制”为标准。
+    如果出现明显或尖锐疼痛、麻木/刺痛、头晕、胸痛、异常呼吸困难，立即停止。
+    如果腰痛或脚部疼痛持续、反复、加重或影响日常活动，请先让医生/物理治疗师评估。
+  </div>
+  <button style="margin-top:10px" onclick="dismissSafety()">我已阅读</button>
+</section>
+<main id="home" class="page active">
     <section class="hero">
       <div class="hero-top">
         <div><div class="label">CURRENT WEIGHT</div><div class="weight"><span id="currentWeight">66.0</span><span class="unit"> kg</span></div><div class="target">目标：62.0 kg · 第一阶段</div></div>
@@ -70,32 +88,83 @@ nav button{background:transparent;border:0;color:var(--muted);padding:8px 4px;fo
     </section>
 
     <div class="grid">
-      <div class="card"><div class="label">TODAY'S STEPS</div><div class="value"><span id="stepsDisplay">7,000</span></div><div class="small">目标 7,000–8,000</div></div>
+      <div class="card"><div class="label">TODAY'S STEPS</div><div class="value"><span id="stepsDisplay">6,300</span></div><div class="small">基准约 6,300 · 先稳住</div></div>
       <div class="card"><div class="label">TODAY'S SCORE</div><div class="value"><span id="todayScore">0</span>/5</div><div class="small">完成 4/5 就很好</div></div>
       <div class="card"><div class="label">SLEEP</div><div class="value"><span id="sleepDisplay">—</span></div><div class="small">目标 7–9 小时</div></div>
       <div class="card"><div class="label">AFTER-LUNCH ENERGY</div><div class="value" id="energyDisplay">—</div><div class="small">1 = 很困 · 5 = 精神很好</div></div>
     </div>
 
-    <div class="section-title">今日 30 秒打卡</div>
+    
+<section class="card" style="margin-bottom:12px">
+  <div class="label">COACHING APPROACH</div>
+  <div style="font-weight:800;font-size:15px;margin-bottom:6px">先稳定生活，再减脂。</div>
+  <div class="tip">目前基准约 6,300 步。第一阶段目标是稳定在约 6,500–7,000 步、每周 2 次 15–20 分钟居家训练、午餐后走 10 分钟、逐步提前睡觉。暂时不追求 10,000 步，也不要求精确计算每一餐卡路里。</div>
+</section>
+<div class="section-title">今日 30 秒打卡</div>
     <div class="checkin">
-      <div class="row"><div class="row-left"><div class="icon">🚶</div><div><div class="row-title">步数达标</div><div class="row-sub">今天至少 7,000 步</div></div></div><button id="stepsBtn" onclick="toggle('steps')">完成</button></div>
+      <div class="row"><div class="row-left"><div class="icon">🚶</div><div><div class="row-title">步数达标</div><div class="row-sub">今天先达到 6,500 步</div></div></div><button id="stepsBtn" onclick="toggle('steps')">完成</button></div>
       <div class="row"><div class="row-left"><div class="icon">🏋️</div><div><div class="row-title">完成训练 / 主动活动</div><div class="row-sub">按今天计划即可</div></div></div><button id="exerciseBtn" onclick="toggle('exercise')">完成</button></div>
       <div class="row"><div class="row-left"><div class="icon">🥤</div><div><div class="row-title">饮料控制</div><div class="row-sub">水 / 无糖为主</div></div></div><button id="drinkBtn" onclick="toggle('drink')">完成</button></div>
       <div class="row"><div class="row-left"><div class="icon">🍚</div><div><div class="row-title">饮食控制</div><div class="row-sub">蛋白质 + 蔬菜 + 合理碳水</div></div></div><button id="foodBtn" onclick="toggle('food')">完成</button></div>
       <div class="row"><div class="row-left"><div class="icon">🪑</div><div><div class="row-title">打断久坐</div><div class="row-sub">工作中多次站起来走 2–3 分钟</div></div></div><button id="sittingBtn" onclick="toggle('sitting')">完成</button></div>
     </div>
 
-    <div class="section-title">今日数据</div>
+    
+    <div class="section-title">💧 今日喝水</div>
+    <section class="card">
+      <div style="display:flex;justify-content:space-between;align-items:end">
+        <div><div class="label">TODAY'S WATER</div><div class="value"><span id="waterDisplay">0</span> ml</div></div>
+        <div class="small">第一阶段参考：约 2,000 ml</div>
+      </div>
+      <div class="progress" style="margin-top:12px"><i id="waterBar"></i></div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:12px">
+        <button onclick="addWater(250)">+250 ml</button>
+        <button onclick="addWater(500)">+500 ml</button>
+        <button onclick="addWater(750)">+750 ml</button>
+      </div>
+    </section>
+
+    <div class="section-title">🍚 今日饮食记录</div>
+    <section class="card">
+      <div class="tip" style="margin-bottom:10px">第一阶段先不要求精确计算卡路里。我们先观察份量和习惯；如果连续 2–3 周体重趋势没有变化，再决定是否进入详细热量估算。</div>
+      <div class="form-grid">
+        <div><div class="label">早餐份量</div><select id="breakfast"><option value="">选择</option><option>少</option><option>正常</option><option>多</option></select></div>
+        <div><div class="label">午餐份量</div><select id="lunch"><option value="">选择</option><option>少</option><option>正常</option><option>多</option></select></div>
+        <div><div class="label">晚餐份量</div><select id="dinner"><option value="">选择</option><option>少</option><option>正常</option><option>多</option></select></div>
+        <div><div class="label">蛋白质</div><select id="protein"><option value="">选择</option><option>少</option><option>足够</option></select></div>
+        <div><div class="label">蔬菜</div><select id="vegetables"><option value="">选择</option><option>少</option><option>足够</option></select></div>
+        <div><div class="label">零食 / 甜食</div><select id="snacks"><option value="">选择</option><option>没有</option><option>少量</option><option>较多</option></select></div>
+        <div class="full"><div class="label">今天主要饮料</div><select id="drinks"><option value="">选择</option><option>白开水</option><option>无糖饮料</option><option>含糖饮料</option></select></div>
+      </div>
+    </section>
+
+    <div class="section-title">⚖️ 今日身体数据</div>
     <section class="card">
       <div class="form-grid">
         <div><div class="label">体重 kg</div><input id="weightInput" type="number" step="0.1" placeholder="例如 65.8"></div>
-        <div><div class="label">步数</div><input id="stepsInput" type="number" step="100" placeholder="例如 7420"></div>
-        <div><div class="label">睡眠小时</div><input id="sleepInput" type="number" step="0.1" placeholder="例如 7.2"></div>
-        <div><div class="label">午饭后精神</div><select id="energyInput"><option value="">选择</option><option value="1">1 😴</option><option value="2">2</option><option value="3">3 🙂</option><option value="4">4</option><option value="5">5 ⚡</option></select></div>
+        <div><div class="label">Apple Health 步数</div><input id="stepsInput" type="number" step="100" placeholder="例如 6300"></div>
+        <div><div class="label">睡眠小时</div><input id="sleepInput" type="number" step="0.1" placeholder="例如 6.5"></div>
+        <div><div class="label">午饭后精神</div><select id="energyInput"><option value="">选择</option><option value="1">1 😴 很困</option><option value="2">2</option><option value="3">3 🙂 普通</option><option value="4">4</option><option value="5">5 ⚡ 很精神</option></select></div>
         <div class="full"><button class="primary" style="width:100%" onclick="saveToday()">保存今天数据</button></div>
       </div>
     </section>
-  </main>
+
+    <div class="section-title">🧠 运动后反馈</div>
+    <section class="card">
+      <div class="label">今天做完运动后的感觉</div>
+      <div class="energy">
+        <button id="feelComfort" onclick="setFeel('舒服')">舒服</button>
+        <button id="feelTired" onclick="setFeel('有点累')">有点累</button>
+        <button id="feelUncomfortable" onclick="setFeel('不舒服')">不舒服</button>
+      </div>
+      <div class="form-grid" style="margin-top:10px">
+        <div class="full"><div class="label">如果不舒服，哪里？</div><select id="painArea" onchange="saveFeedback()">
+          <option value="">没有 / 不需要</option><option>腰</option><option>脚板 / 脚</option><option>膝盖</option><option>肩颈</option><option>其他</option>
+        </select></div>
+        <div class="full"><div class="label">备注（可选）</div><input id="notesInput" type="text" placeholder="例如：右脚走10分钟后有点酸"></div>
+      </div>
+    </section>
+</main>
 
   <main id="plan" class="page">
     <div class="section-title">本周训练</div>
@@ -109,7 +178,84 @@ nav button{background:transparent;border:0;color:var(--muted);padding:8px 4px;fo
       <div class="goal">🛌 周日 · 恢复 + 轻松活动</div>
     </section>
 
-    <div class="section-title">Workout A</div>
+    
+    <div class="section-title">🧭 Week 1–2：身体重启 · Coach Guided</div>
+    <section class="card">
+      <div class="tip" style="margin-bottom:12px">
+        这两周不是拼强度。目标是让身体重新习惯活动、减少久坐，并观察腰、脚板和肩颈的反应。
+        <b>如果出现明显疼痛、麻木、刺痛、头晕或不舒服，立即停止。</b>
+      </div>
+
+      <div class="exercise-card">
+        <div class="exercise-head"><span>① 热身：肩颈 + 上背</span><span class="pill">3–4 min</span></div>
+        <div class="exercise-desc">先坐直或站直，肩膀放松。慢慢做颈部转动、肩膀活动和上背伸展，不要用力压头。</div>
+        <a class="video-link" target="_blank" href="https://www.nhs.uk/live-well/exercise/flexibility-exercises/">▶ 看 NHS 示范</a>
+        <div class="coach-tip">标准不是“拉得越大越好”，而是动作慢、呼吸正常、只到舒服的伸展位置。</div>
+      </div>
+
+      <div class="exercise-card">
+        <div class="exercise-head"><span>② Chair Squat 椅子深蹲</span><span class="pill">6–8 × 2</span></div>
+        <div class="exercise-desc">站在稳固椅子前，双脚约肩宽。臀部向后坐，轻轻碰椅子，再站起来。先做浅幅度。</div>
+        <a class="video-link" target="_blank" href="https://www.guysandstthomas.nhs.uk/health-information/low-back-pain/physiotherapy-and-exercises">▶ 看示范与动作说明</a>
+        <div class="coach-tip">重点：膝盖方向跟脚尖一致；脚跟保持着地；不要为了“蹲深”而勉强腰或膝盖。</div>
+      </div>
+
+      <div class="exercise-card">
+        <div class="exercise-head"><span>③ Wall Push-up 墙壁俯卧撑</span><span class="pill">6–10 × 2</span></div>
+        <div class="exercise-desc">双手放墙，身体保持一直线，慢慢靠近墙，再推回去。比地板俯卧撑容易很多。</div>
+        <a class="video-link" target="_blank" href="https://www.nhs.uk/live-well/exercise/strength-and-resistance/">▶ 看 NHS Strength 示范</a>
+        <div class="coach-tip">不要耸肩。身体像一块板一起移动；如果肩颈明显紧张，减少次数。</div>
+      </div>
+
+      <div class="exercise-card">
+        <div class="exercise-head"><span>④ Glute Bridge 臀桥</span><span class="pill">8–10 × 2</span></div>
+        <div class="exercise-desc">躺下、屈膝、脚掌踩地。轻轻收紧臀部，把臀部抬起，再慢慢放下。</div>
+        <div class="coach-tip">重点是臀部发力，不是把腰拱得很高。腰部如果出现明显疼痛，停止并改做轻松活动。</div>
+      </div>
+
+      <div class="exercise-card">
+        <div class="exercise-head"><span>⑤ Bird Dog 鸟狗式</span><span class="pill">每边 5–6 × 2</span></div>
+        <div class="exercise-desc">四点跪姿，慢慢伸出一只手和相反的一条腿，保持稳定，再换边。幅度小也可以。</div>
+        <div class="coach-tip">宁可小幅度、慢慢做，也不要为了伸得远而扭腰。腰部保持稳定。</div>
+      </div>
+
+      <div class="exercise-card">
+        <div class="exercise-head"><span>⑥ 午餐后走路</span><span class="pill">10 min</span></div>
+        <div class="exercise-desc">吃完午餐后轻松走 10 分钟，不追求快。目的是减少长时间坐着，同时观察下午精神状态。</div>
+        <div class="coach-tip">脚板如果不舒服，就缩短时间；不要为了完成数字硬走。</div>
+      </div>
+
+      <div class="exercise-card">
+        <div class="exercise-head"><span>⑦ 放松：肩颈 / 上背</span><span class="pill">3–5 min</span></div>
+        <div class="exercise-desc">可以使用 Cambridge University Hospitals 的坐姿肩颈伸展示范。</div>
+        <a class="video-link" target="_blank" href="https://www.cuh.nhs.uk/our-services/physiotherapy-outpatients/outpatient-physio-resources/resources/shoulder/seated-stretches/">▶ 看示范视频</a>
+      </div>
+
+      <div class="safety">
+        <b>🚦 Coach 疼痛规则</b><br>
+        🟢 轻微肌肉酸 / 正常疲劳 → 可以继续<br>
+        🟡 某个部位越来越不舒服 → 降低幅度、减少次数或换动作<br>
+        🔴 明显疼痛、麻木、刺痛、头晕、胸痛或身体不适 → 立即停止
+      </div>
+    </section>
+
+    <div class="section-title">📅 第一周怎么做</div>
+    <section class="card">
+      <div class="goal"><b>周一：</b> 10–15分钟身体重启（①②③④）</div>
+      <div class="goal"><b>周二：</b> 午餐后走10分钟 + 晚上3–5分钟肩颈放松</div>
+      <div class="goal"><b>周三：</b> 15–20分钟身体重启（①②③④⑤）</div>
+      <div class="goal"><b>周四：</b> 只做10分钟轻松活动 / 伸展</div>
+      <div class="goal"><b>周五：</b> 休息；保持日常走路</div>
+      <div class="goal"><b>周六：</b> 20–30分钟轻松步行或喜欢的低冲击活动</div>
+      <div class="goal"><b>周日：</b> 恢复 + 轻松走路</div>
+    </section>
+
+    <div class="section-title">🎯 做完后告诉 Coach</div>
+    <section class="card">
+      <div class="tip">每次训练后不用写长报告，只要记录：<b>舒服 / 有点累 / 不舒服</b>。如果腰、脚板或肩颈的感觉有变化，也记录下来。我们会用这些反馈决定下一周是否增加训练量。</div>
+    </section>
+
+<div class="section-title">Workout A</div>
     <section class="card tip">
       热身 5 分钟 → Squat 12 × 3 → Push-up 8–12 × 3 → Glute Bridge 15 × 3 → Backpack Row 12 × 3 → Plank 30 秒 × 3。组间休息 60–90 秒。
     </section>
@@ -118,7 +264,17 @@ nav button{background:transparent;border:0;color:var(--muted);padding:8px 4px;fo
       热身 5 分钟 → Reverse Lunge 10/边 × 3 → Incline Push-up 10–15 × 3 → Backpack Romanian Deadlift 12 × 3 → Backpack Row 12 × 3 → Dead Bug 10/边 × 3。
     </section>
 
-    <div class="section-title">办公室规则</div>
+    
+    <div class="section-title">📚 动作学习库</div>
+    <section class="card">
+      <div class="tip">第一次做任何动作：先看示范，再做少量重复。第一周的目标是“学会控制身体”，不是做到最多。</div>
+      <div class="goal"><b>Chair Squat：</b>屁股向后坐，轻触椅子再站起；浅幅度也可以。不要为了蹲深而勉强腰或膝盖。</div>
+      <div class="goal"><b>Wall Push-up：</b>双手推墙，身体保持一直线；慢慢靠近墙，再推回。不要耸肩。</div>
+      <div class="goal"><b>Glute Bridge：</b>臀部抬起到舒服高度，感觉主要来自臀部，不要把腰拱得很高。</div>
+      <div class="goal"><b>Bird Dog：</b>手和对侧脚慢慢伸出，身体保持稳定；宁愿小幅度也不要扭腰。</div>
+      <div class="goal"><b>Mobility：</b>肩颈、上背活动只做到舒服的伸展，不弹、不压、不忍痛。</div>
+    </section>
+<div class="section-title">办公室规则</div>
     <section class="card">
       <div class="goal">⏱️ 每工作约 50–60 分钟，站起来 2–3 分钟。</div>
       <div class="goal">💧 装水时顺便走一圈，不必额外安排运动。</div>
@@ -134,16 +290,29 @@ nav button{background:transparent;border:0;color:var(--muted);padding:8px 4px;fo
     </section>
 
     <div class="section-title">下周只做 3 件事</div>
-    <div class="goal">1️⃣ 每周完成 3 次力量 / 主动运动</div>
-    <div class="goal">2️⃣ 至少 4 天睡到 7 小时以上</div>
-    <div class="goal">3️⃣ 午餐后走 10–15 分钟，观察下午精神变化</div>
+    <div class="goal">1️⃣ 每周完成 <b>2 次</b> 15–20 分钟居家训练；做到 3 次算加分，不是硬性要求。</div>
+    <div class="goal">2️⃣ 先把上床时间逐步提前；目标至少 4 天达到约 7 小时睡眠。</div>
+    <div class="goal">3️⃣ 至少 4 天午餐后轻松走 10 分钟，并记录下午精神。</div>
 
     <div class="section-title">Coach 原则</div>
     <section class="card tip">
       如果体重一周没有下降，不要马上大幅减少食量。先看：睡眠、饮料、零食、周末饮食、训练次数和平均步数。体重看趋势，不看单日波动。
     </section>
 
-    <div class="section-title">数据管理</div>
+    
+    <div class="section-title">💾 数据安全</div>
+    <section class="card">
+      <div class="tip">每次升级 App 前先导出一次。更新后的版本可以把备份导回去；旧记录不会因为升级计划而主动删除。</div>
+      <div style="margin-top:10px">
+        <button class="primary" onclick="exportData()">📤 导出备份</button>
+        <label style="display:inline-block;margin-left:6px">
+          <span style="display:inline-block;background:#1b2740;border:1px solid #30405f;border-radius:11px;padding:9px 12px;font-weight:700;cursor:pointer">📥 导入备份</span>
+          <input type="file" accept=".json,application/json" onchange="importData(event)" style="display:none">
+        </label>
+      </div>
+      <div class="tip" style="margin-top:10px">建议：至少每 7 天备份一次。这个 Prototype 目前仍是本机保存，不是云端数据库。</div>
+    </section>
+<div class="section-title">数据管理</div>
     <section class="card">
       <button onclick="exportData()">导出数据</button>
       <button class="danger" onclick="resetData()" style="margin-left:6px">重置</button>
@@ -160,22 +329,22 @@ nav button{background:transparent;border:0;color:var(--muted);padding:8px 4px;fo
 <div class="toast" id="toast">已保存</div>
 
 <script>
-const KEY='fit66to62_v1';
+const KEY='fit66to62_prelaunch_v1'; const APP_VERSION='1.0-prelaunch';
 const todayKey=()=>new Date().toISOString().slice(0,10);
-let db=JSON.parse(localStorage.getItem(KEY)||'{"days":{}}');
-function day(){const k=todayKey(); if(!db.days[k]) db.days[k]={steps:7000,weight:66,sleep:null,energy:null,stepsDone:false,exercise:false,drink:false,food:false,sitting:false}; return db.days[k]}
-function persist(){localStorage.setItem(KEY,JSON.stringify(db))}
-function toast(t){const e=document.getElementById('toast');e.textContent=t;e.classList.add('show');setTimeout(()=>e.classList.remove('show'),1300)}
-function toggle(k){day()[k]=!day()[k];persist();render();toast(day()[k]?'已完成 ✓':'已取消')}
-function saveToday(){
-  const d=day();
-  const w=parseFloat(document.getElementById('weightInput').value); if(!isNaN(w)) d.weight=w;
-  const s=parseInt(document.getElementById('stepsInput').value); if(!isNaN(s)) d.steps=s;
-  const sl=parseFloat(document.getElementById('sleepInput').value); if(!isNaN(sl)) d.sleep=sl;
-  const en=document.getElementById('energyInput').value; if(en) d.energy=parseInt(en);
-  if(d.steps>=7000)d.stepsDone=true;
-  persist();render();toast('今天的数据已保存 ✓');
+let db;
+try { db=JSON.parse(localStorage.getItem(KEY)||'null'); } catch(e) { db=null; }
+if(!db || typeof db!=='object' || !db.days) db={schemaVersion:1, appVersion:APP_VERSION, days:{}, profile:{targetWeight:62, baselineWeight:66, baselineSteps:6300}};
+db.schemaVersion=db.schemaVersion||1; db.appVersion=APP_VERSION;
+function normalizeDay(d){
+  d=d||{};
+  return Object.assign({
+    steps:6300, weight:66, sleep:null, energy:null, water:0,
+    breakfast:'', lunch:'', dinner:'', protein:'', vegetables:'', snacks:'', drinks:'',
+    stepsDone:false, exercise:false, drink:false, food:false, sitting:false,
+    exerciseFeel:'', painArea:'', notes:''
+  }, d);
 }
+function day(){const k=todayKey(); if(!db.days[k]) db.days[k]=normalizeDay({}); else db.days[k]=normalizeDay(db.days[k]); return db.days[k]}
 function showPage(id,btn){document.querySelectorAll('.page').forEach(x=>x.classList.remove('active'));document.getElementById(id).classList.add('active');document.querySelectorAll('nav button').forEach(x=>x.classList.remove('active'));btn.classList.add('active')}
 function progress(w){return Math.max(0,Math.min(100,((66-w)/4)*100))}
 function render(){
@@ -184,6 +353,8 @@ function render(){
   document.getElementById('progressPct').textContent=Math.round(p)+'%';
   document.getElementById('progressBar').style.width=p+'%';
   document.getElementById('stepsDisplay').textContent=(d.steps||0).toLocaleString();
+  document.getElementById('waterDisplay').textContent=(d.water||0).toLocaleString();
+  document.getElementById('waterBar').style.width=Math.min(100,((d.water||0)/2000)*100)+'%';
   document.getElementById('sleepDisplay').textContent=d.sleep?d.sleep.toFixed(1)+'h':'—';
   document.getElementById('energyDisplay').textContent=d.energy?d.energy+'/5':'—';
   const ks=['stepsDone','exercise','drink','food','sitting']; const score=ks.filter(k=>d[k]).length;
@@ -193,6 +364,7 @@ function render(){
   document.getElementById('stepsInput').value=d.steps||'';
   document.getElementById('sleepInput').value=d.sleep||'';
   document.getElementById('energyInput').value=d.energy||'';
+  ['breakfast','lunch','dinner','protein','vegetables','snacks','drinks'].forEach(id=>{const el=document.getElementById(id); if(el) el.value=d[id]||''});
   const keys=Object.keys(db.days).sort(); let scoreTotal=0, n=0;
   keys.slice(-7).forEach(k=>{const x=db.days[k]; scoreTotal+=ks.filter(a=>x[a]).length;n++});
   const ws=n?Math.round(scoreTotal/(n*5)*100):0;
@@ -201,11 +373,41 @@ function render(){
   const start=new Date('2026-08-17T00:00:00'); const now=new Date(); const diff=Math.max(0,Math.floor((now-start)/86400000)); const week=Math.min(12,Math.floor(diff/7)+1);
   document.getElementById('weekBadge').textContent='Week '+week;
 }
+
+function dismissSafety(){localStorage.setItem('fit66to62_safety_seen','1');document.getElementById('safetyBanner').style.display='none'}
+function setFeel(v){day().exerciseFeel=v;persist();render();toast('已记录：'+v)}
+function saveFeedback(){day().painArea=document.getElementById('painArea').value;day().notes=document.getElementById('notesInput').value;persist();toast('反馈已保存')}
+function mergeImported(incoming){
+  if(!incoming || !incoming.days) throw new Error('备份格式不正确');
+  const merged={...db, ...incoming, days:{...db.days}};
+  Object.keys(incoming.days).forEach(k=>{
+    const old=normalizeDay(db.days[k]||{});
+    const inc=normalizeDay(incoming.days[k]||{});
+    merged.days[k]=Object.assign(old, inc);
+  });
+  merged.appVersion=APP_VERSION; merged.schemaVersion=1;
+  return merged;
+}
+function importData(ev){
+  const file=ev.target.files && ev.target.files[0]; if(!file)return;
+  const reader=new FileReader();
+  reader.onload=()=>{
+    try{
+      const incoming=JSON.parse(reader.result);
+      db=mergeImported(incoming); persist(); render();
+      toast('备份已导入，旧记录已保留 ✓');
+    }catch(e){alert('导入失败：备份文件格式不正确。')}
+    ev.target.value='';
+  };
+  reader.readAsText(file);
+}
+
 function exportData(){
-  const blob=new Blob([JSON.stringify(db,null,2)],{type:'application/json'});
+  db.exportedAt=new Date().toISOString(); db.appVersion=APP_VERSION; persist(); const blob=new Blob([JSON.stringify(db,null,2)],{type:'application/json'});
   const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='66-to-62-progress.json';a.click();URL.revokeObjectURL(a.href);
 }
 function resetData(){if(confirm('确定要删除本机保存的全部记录吗？')){db={days:{}};persist();render();toast('已重置')}}
+if(localStorage.getItem('fit66to62_safety_seen')==='1') document.getElementById('safetyBanner').style.display='none';
 render();
 </script>
 </body>
