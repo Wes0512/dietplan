@@ -30,11 +30,11 @@ header{display:flex;justify-content:space-between;align-items:center;margin:8px 
 .checkin{display:grid;gap:10px}
 .row{display:flex;align-items:center;justify-content:space-between;background:var(--card);border:1px solid var(--line);padding:13px;border-radius:15px}
 .row-left{display:flex;align-items:center;gap:10px}.icon{font-size:20px}.row-title{font-weight:700;font-size:14px}.row-sub{font-size:11px;color:var(--muted);margin-top:2px}
-button{border:0;color:var(--text);background:#1b2740;border:1px solid #30405f;border-radius:11px;padding:9px 12px;font-weight:700}
+button{border:0;color:var(--text);background:#1b2740;border:1px solid #30405f;border-radius:11px;padding:9px 12px;font-weight:700;cursor:pointer;pointer-events:auto;opacity:1}
 button.active{background:rgba(66,211,146,.15);border-color:rgba(66,211,146,.6);color:#75e8b0}
 button.primary{background:var(--accent);border-color:var(--accent);color:#071022}
 button.danger{background:rgba(255,107,107,.12);border-color:rgba(255,107,107,.4)}
-input,select{width:100%;background:#0b1220;color:var(--text);border:1px solid var(--line);border-radius:11px;padding:11px;font-size:15px}
+input,select,textarea{width:100%;background:#0b1220;color:var(--text);border:1px solid var(--line);border-radius:11px;padding:11px;font-size:15px;pointer-events:auto;opacity:1}
 .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 .full{grid-column:1/-1}
 .range{width:100%}
@@ -44,7 +44,7 @@ input,select{width:100%;background:#0b1220;color:var(--text);border:1px solid va
 .bar{height:8px;background:#202b40;border-radius:99px;overflow:hidden}.bar i{display:block;height:100%;background:var(--good);width:0%}
 .goal{border-left:3px solid var(--accent);padding:11px 12px;background:#0d1424;border-radius:0 12px 12px 0;margin-bottom:8px;font-size:13px}
 .tip{color:var(--muted);font-size:12px;line-height:1.6}
-.exercise-card{background:#0c1423;border:1px solid #26334b;border-radius:15px;padding:13px;margin-bottom:10px}
+.day-plan{background:#0c1423;border:1px solid #26334b;border-radius:14px;padding:12px;margin-bottom:9px;font-size:12px;line-height:1.6}.exercise-card{background:#0c1423;border:1px solid #26334b;border-radius:15px;padding:13px;margin-bottom:10px}
 .exercise-head{display:flex;justify-content:space-between;gap:8px;font-weight:800;font-size:14px}
 .pill{font-size:10px;color:#c8d4ea;background:#17243a;border:1px solid #2b3b58;border-radius:999px;padding:4px 7px;white-space:nowrap}
 .exercise-desc{font-size:12px;line-height:1.6;color:#c0c9d8;margin:8px 0}
@@ -100,6 +100,13 @@ nav button{background:transparent;border:0;color:var(--muted);padding:8px 4px;fo
   <div style="font-weight:800;font-size:15px;margin-bottom:6px">先稳定生活，再减脂。</div>
   <div class="tip">目前基准约 6,300 步。第一阶段目标是稳定在约 6,500–7,000 步、每周 2 次 15–20 分钟居家训练、午餐后走 10 分钟、逐步提前睡觉。暂时不追求 10,000 步，也不要求精确计算每一餐卡路里。</div>
 </section>
+
+<section class="card" style="margin-bottom:12px">
+  <div class="label">TODAY · 只做这几件事</div>
+  <div class="goal">1️⃣ 看“计划”页，按今天的 Day 做，不要自己加量。</div>
+  <div class="goal">2️⃣ 完成今日 30 秒记录：步数、睡眠、喝水、饮食、午后精神。</div>
+  <div class="goal">3️⃣ 如果今天是训练日，先看动作示范，再做；做完记录身体感觉。</div>
+</section>
 <div class="section-title">今日 30 秒打卡</div>
     <div class="checkin">
       <div class="row"><div class="row-left"><div class="icon">🚶</div><div><div class="row-title">步数达标</div><div class="row-sub">今天先达到 6,500 步</div></div></div><button id="stepsBtn" onclick="toggle('steps')">完成</button></div>
@@ -149,140 +156,65 @@ nav button{background:transparent;border:0;color:var(--muted);padding:8px 4px;fo
       </div>
     </section>
 
-    <div class="section-title">🧠 运动后反馈</div>
-    <section class="card">
-      <div class="label">今天做完运动后的感觉</div>
-      <div class="energy">
-        <button id="feelComfort" onclick="setFeel('舒服')">舒服</button>
-        <button id="feelTired" onclick="setFeel('有点累')">有点累</button>
-        <button id="feelUncomfortable" onclick="setFeel('不舒服')">不舒服</button>
-      </div>
-      <div class="form-grid" style="margin-top:10px">
-        <div class="full"><div class="label">如果不舒服，哪里？</div><select id="painArea" onchange="saveFeedback()">
-          <option value="">没有 / 不需要</option><option>腰</option><option>脚板 / 脚</option><option>膝盖</option><option>肩颈</option><option>其他</option>
-        </select></div>
-        <div class="full"><div class="label">备注（可选）</div><input id="notesInput" type="text" placeholder="例如：右脚走10分钟后有点酸"></div>
-      </div>
-    </section>
-</main>
-
-  <main id="plan" class="page">
-    <div class="section-title">本周训练</div>
-    <section class="card">
-      <div class="goal">🏋️ 周一 · 全身力量 A · 35–45 分钟</div>
-      <div class="goal">🚶 周二 · 快走 · 30 分钟</div>
-      <div class="goal">🏋️ 周三 · 全身力量 B · 35–45 分钟</div>
-      <div class="goal">🚶 周四 · 轻松走路 + 拉伸 · 20–30 分钟</div>
-      <div class="goal">🏋️ 周五 · 全身力量 A · 35–45 分钟</div>
-      <div class="goal">🚴 周六 · 快走 / 骑车 / 游泳 · 40–60 分钟</div>
-      <div class="goal">🛌 周日 · 恢复 + 轻松活动</div>
-    </section>
-
     
-    <div class="section-title">🧭 Week 1–2：身体重启 · Coach Guided</div>
+
+    <div class="section-title">第 1 周</div>
     <section class="card">
-      <div class="tip" style="margin-bottom:12px">
-        这两周不是拼强度。目标是让身体重新习惯活动、减少久坐，并观察腰、脚板和肩颈的反应。
-        <b>如果出现明显疼痛、麻木、刺痛、头晕或不舒服，立即停止。</b>
-      </div>
+      <div class="day-plan"><b>MON｜Day 1 · 15分钟</b><br>🧘 身体重启 A：热身 → Chair Squat → Wall Push-up → Glute Bridge → 放松</div>
+      <div class="day-plan"><b>TUE｜Day 2 · 10–15分钟</b><br>🚶 午餐后轻松走 10 分钟 + 晚上肩颈放松 3–5 分钟</div>
+      <div class="day-plan"><b>WED｜Day 3 · 休息</b><br>🪑 工作中至少 3 次站起来走 2–3 分钟；不做正式训练</div>
+      <div class="day-plan"><b>THU｜Day 4 · 15分钟</b><br>🧘 身体重启 B：热身 → Bird Dog → Chair Squat → Wall Push-up → 放松</div>
+      <div class="day-plan"><b>FRI｜Day 5 · 恢复</b><br>🚶 保持日常走路；如果舒服，可做 5 分钟轻松伸展</div>
+      <div class="day-plan"><b>SAT｜Day 6 · 20–30分钟</b><br>🚶 轻松散步 / 低冲击活动。不要跑步、跳跃或 HIIT</div>
+      <div class="day-plan"><b>SUN｜Day 7 · 恢复</b><br>🛌 休息 + 轻松活动；晚上记录本周身体感觉</div>
+    </section>
 
+    <div class="section-title">第 2 周</div>
+    <section class="card">
+      <div class="day-plan"><b>MON｜Day 8 · 15–20分钟</b><br>🏋️ 身体重启 A：如果第1周没有明显不适，每个动作增加 1–2 次</div>
+      <div class="day-plan"><b>TUE｜Day 9 · 10–15分钟</b><br>🚶 午餐后走 10 分钟 + 肩颈放松</div>
+      <div class="day-plan"><b>WED｜Day 10 · 休息</b><br>🪑 至少 3 次久坐打断；不需要正式训练</div>
+      <div class="day-plan"><b>THU｜Day 11 · 15–20分钟</b><br>🏋️ 身体重启 B：保持动作质量，不追求速度</div>
+      <div class="day-plan"><b>FRI｜Day 12 · 恢复</b><br>🚶 正常通勤 + 轻松伸展 5 分钟</div>
+      <div class="day-plan"><b>SAT｜Day 13 · 20–30分钟</b><br>🚶 轻松步行或他喜欢的低冲击活动</div>
+      <div class="day-plan"><b>SUN｜Day 14 · Review</b><br>📊 看体重、平均步数、睡眠、午后精神、训练完成率和疼痛反馈</div>
+    </section>
+
+    <div class="section-title">🏠 两套训练到底怎么做？</div>
+    <section class="card">
       <div class="exercise-card">
-        <div class="exercise-head"><span>① 热身：肩颈 + 上背</span><span class="pill">3–4 min</span></div>
-        <div class="exercise-desc">先坐直或站直，肩膀放松。慢慢做颈部转动、肩膀活动和上背伸展，不要用力压头。</div>
-        <a class="video-link" target="_blank" href="https://www.nhs.uk/live-well/exercise/flexibility-exercises/">▶ 看 NHS 示范</a>
-        <div class="coach-tip">标准不是“拉得越大越好”，而是动作慢、呼吸正常、只到舒服的伸展位置。</div>
+        <div class="exercise-head"><span>Workout A · 基础力量</span><span class="pill">约15分钟</span></div>
+        <div class="exercise-desc">
+          ① 热身 3 分钟 → ② Chair Squat 6–8次 × 2 → ③ Wall Push-up 6–10次 × 2 →
+          ④ Glute Bridge 8–10次 × 2 → ⑤ 放松 3 分钟。
+        </div>
+        <div class="coach-tip">目标：学习控制身体。动作慢一点、幅度小一点都可以。</div>
       </div>
-
       <div class="exercise-card">
-        <div class="exercise-head"><span>② Chair Squat 椅子深蹲</span><span class="pill">6–8 × 2</span></div>
-        <div class="exercise-desc">站在稳固椅子前，双脚约肩宽。臀部向后坐，轻轻碰椅子，再站起来。先做浅幅度。</div>
-        <a class="video-link" target="_blank" href="https://www.guysandstthomas.nhs.uk/health-information/low-back-pain/physiotherapy-and-exercises">▶ 看示范与动作说明</a>
-        <div class="coach-tip">重点：膝盖方向跟脚尖一致；脚跟保持着地；不要为了“蹲深”而勉强腰或膝盖。</div>
+        <div class="exercise-head"><span>Workout B · 稳定与活动</span><span class="pill">约15分钟</span></div>
+        <div class="exercise-desc">
+          ① 热身 3 分钟 → ② Bird Dog 每边5–6次 × 2 → ③ Chair Squat 6–8次 × 2 →
+          ④ Wall Push-up 6–10次 × 2 → ⑤ 放松 3 分钟。
+        </div>
+        <div class="coach-tip">目标：核心稳定、肩颈放松、重新建立运动习惯。</div>
       </div>
+    </section>
 
-      <div class="exercise-card">
-        <div class="exercise-head"><span>③ Wall Push-up 墙壁俯卧撑</span><span class="pill">6–10 × 2</span></div>
-        <div class="exercise-desc">双手放墙，身体保持一直线，慢慢靠近墙，再推回去。比地板俯卧撑容易很多。</div>
-        <a class="video-link" target="_blank" href="https://www.nhs.uk/live-well/exercise/strength-and-resistance/">▶ 看 NHS Strength 示范</a>
-        <div class="coach-tip">不要耸肩。身体像一块板一起移动；如果肩颈明显紧张，减少次数。</div>
-      </div>
-
-      <div class="exercise-card">
-        <div class="exercise-head"><span>④ Glute Bridge 臀桥</span><span class="pill">8–10 × 2</span></div>
-        <div class="exercise-desc">躺下、屈膝、脚掌踩地。轻轻收紧臀部，把臀部抬起，再慢慢放下。</div>
-        <div class="coach-tip">重点是臀部发力，不是把腰拱得很高。腰部如果出现明显疼痛，停止并改做轻松活动。</div>
-      </div>
-
-      <div class="exercise-card">
-        <div class="exercise-head"><span>⑤ Bird Dog 鸟狗式</span><span class="pill">每边 5–6 × 2</span></div>
-        <div class="exercise-desc">四点跪姿，慢慢伸出一只手和相反的一条腿，保持稳定，再换边。幅度小也可以。</div>
-        <div class="coach-tip">宁可小幅度、慢慢做，也不要为了伸得远而扭腰。腰部保持稳定。</div>
-      </div>
-
-      <div class="exercise-card">
-        <div class="exercise-head"><span>⑥ 午餐后走路</span><span class="pill">10 min</span></div>
-        <div class="exercise-desc">吃完午餐后轻松走 10 分钟，不追求快。目的是减少长时间坐着，同时观察下午精神状态。</div>
-        <div class="coach-tip">脚板如果不舒服，就缩短时间；不要为了完成数字硬走。</div>
-      </div>
-
-      <div class="exercise-card">
-        <div class="exercise-head"><span>⑦ 放松：肩颈 / 上背</span><span class="pill">3–5 min</span></div>
-        <div class="exercise-desc">可以使用 Cambridge University Hospitals 的坐姿肩颈伸展示范。</div>
-        <a class="video-link" target="_blank" href="https://www.cuh.nhs.uk/our-services/physiotherapy-outpatients/outpatient-physio-resources/resources/shoulder/seated-stretches/">▶ 看示范视频</a>
-      </div>
-
+    <div class="section-title">🚦 每次运动的安全检查</div>
+    <section class="card">
       <div class="safety">
-        <b>🚦 Coach 疼痛规则</b><br>
-        🟢 轻微肌肉酸 / 正常疲劳 → 可以继续<br>
-        🟡 某个部位越来越不舒服 → 降低幅度、减少次数或换动作<br>
-        🔴 明显疼痛、麻木、刺痛、头晕、胸痛或身体不适 → 立即停止
+        <b>🟢 继续：</b>正常肌肉疲劳、轻微酸、动作可控制。<br>
+        <b>🟡 调整：</b>某个部位越来越不舒服 → 减少次数、缩小幅度或停止该动作。<br>
+        <b>🔴 停止：</b>明显/尖锐疼痛、麻木、刺痛、头晕、胸痛、异常呼吸困难。
       </div>
-    </section>
-
-    <div class="section-title">📅 第一周怎么做</div>
-    <section class="card">
-      <div class="goal"><b>周一：</b> 10–15分钟身体重启（①②③④）</div>
-      <div class="goal"><b>周二：</b> 午餐后走10分钟 + 晚上3–5分钟肩颈放松</div>
-      <div class="goal"><b>周三：</b> 15–20分钟身体重启（①②③④⑤）</div>
-      <div class="goal"><b>周四：</b> 只做10分钟轻松活动 / 伸展</div>
-      <div class="goal"><b>周五：</b> 休息；保持日常走路</div>
-      <div class="goal"><b>周六：</b> 20–30分钟轻松步行或喜欢的低冲击活动</div>
-      <div class="goal"><b>周日：</b> 恢复 + 轻松走路</div>
-    </section>
-
-    <div class="section-title">🎯 做完后告诉 Coach</div>
-    <section class="card">
-      <div class="tip">每次训练后不用写长报告，只要记录：<b>舒服 / 有点累 / 不舒服</b>。如果腰、脚板或肩颈的感觉有变化，也记录下来。我们会用这些反馈决定下一周是否增加训练量。</div>
-    </section>
-
-<div class="section-title">Workout A</div>
-    <section class="card tip">
-      热身 5 分钟 → Squat 12 × 3 → Push-up 8–12 × 3 → Glute Bridge 15 × 3 → Backpack Row 12 × 3 → Plank 30 秒 × 3。组间休息 60–90 秒。
-    </section>
-    <div class="section-title">Workout B</div>
-    <section class="card tip">
-      热身 5 分钟 → Reverse Lunge 10/边 × 3 → Incline Push-up 10–15 × 3 → Backpack Romanian Deadlift 12 × 3 → Backpack Row 12 × 3 → Dead Bug 10/边 × 3。
-    </section>
-
-    
-    <div class="section-title">📚 动作学习库</div>
-    <section class="card">
-      <div class="tip">第一次做任何动作：先看示范，再做少量重复。第一周的目标是“学会控制身体”，不是做到最多。</div>
-      <div class="goal"><b>Chair Squat：</b>屁股向后坐，轻触椅子再站起；浅幅度也可以。不要为了蹲深而勉强腰或膝盖。</div>
-      <div class="goal"><b>Wall Push-up：</b>双手推墙，身体保持一直线；慢慢靠近墙，再推回。不要耸肩。</div>
-      <div class="goal"><b>Glute Bridge：</b>臀部抬起到舒服高度，感觉主要来自臀部，不要把腰拱得很高。</div>
-      <div class="goal"><b>Bird Dog：</b>手和对侧脚慢慢伸出，身体保持稳定；宁愿小幅度也不要扭腰。</div>
-      <div class="goal"><b>Mobility：</b>肩颈、上背活动只做到舒服的伸展，不弹、不压、不忍痛。</div>
-    </section>
-<div class="section-title">办公室规则</div>
-    <section class="card">
-      <div class="goal">⏱️ 每工作约 50–60 分钟，站起来 2–3 分钟。</div>
-      <div class="goal">💧 装水时顺便走一圈，不必额外安排运动。</div>
-      <div class="goal">🍱 午餐后尽量走 10–15 分钟，再回到电脑前。</div>
+      <div class="tip" style="margin-top:10px">
+        因为学员目前有腰痛、脚板不适和肩颈紧绷，第一阶段不做跑步、跳跃、Burpees、跳绳或高强度 HIIT。
+        如果疼痛持续、反复、加重或影响日常活动，应先做专业医疗/物理治疗评估。
+      </div>
     </section>
   </main>
 
-  <main id="review" class="page">
+<main id="review" class="page">
     <div class="section-title">12 周进度</div>
     <section class="card">
       <div class="score-ring"><div class="score" id="weekScore">0</div><div><div class="value" style="font-size:16px">Weekly Habit Score</div><div class="small">以习惯趋势为主，不追求满分</div></div></div>
