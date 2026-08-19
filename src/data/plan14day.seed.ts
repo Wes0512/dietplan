@@ -75,7 +75,6 @@ const week1: DayPlan[] = [
   {
     day_number: 1,
     week_number: 1,
-    weekday_label: '周一 · 第 1 天',
     day_type: 'workout',
     workout_id: 'workout-a',
     goals: [
@@ -89,7 +88,6 @@ const week1: DayPlan[] = [
   {
     day_number: 2,
     week_number: 1,
-    weekday_label: '周二 · 第 2 天',
     day_type: 'recovery',
     goals: [
       workoutGoal('训练', 'not_applicable'),
@@ -103,7 +101,6 @@ const week1: DayPlan[] = [
   {
     day_number: 3,
     week_number: 1,
-    weekday_label: '周三 · 第 3 天',
     day_type: 'rest',
     goals: [
       workoutGoal('训练', 'not_applicable'),
@@ -116,7 +113,6 @@ const week1: DayPlan[] = [
   {
     day_number: 4,
     week_number: 1,
-    weekday_label: '周四 · 第 4 天',
     day_type: 'workout',
     workout_id: 'workout-b',
     goals: [
@@ -130,7 +126,6 @@ const week1: DayPlan[] = [
   {
     day_number: 5,
     week_number: 1,
-    weekday_label: '周五 · 第 5 天',
     day_type: 'recovery',
     goals: [
       workoutGoal('训练', 'not_applicable'),
@@ -143,7 +138,6 @@ const week1: DayPlan[] = [
   {
     day_number: 6,
     week_number: 1,
-    weekday_label: '周六 · 第 6 天',
     day_type: 'low_impact',
     goals: [
       workoutGoal('训练', 'not_applicable'),
@@ -156,7 +150,6 @@ const week1: DayPlan[] = [
   {
     day_number: 7,
     week_number: 1,
-    weekday_label: '周日 · 第 7 天',
     day_type: 'full_review',
     goals: [
       workoutGoal('训练', 'not_applicable'),
@@ -177,7 +170,6 @@ const week2: DayPlan[] = [
   {
     day_number: 8,
     week_number: 2,
-    weekday_label: '周一 · 第 8 天',
     day_type: 'workout',
     workout_id: 'workout-a',
     goals: [
@@ -192,7 +184,6 @@ const week2: DayPlan[] = [
   {
     day_number: 9,
     week_number: 2,
-    weekday_label: '周二 · 第 9 天',
     day_type: 'recovery',
     goals: [
       workoutGoal('训练', 'not_applicable'),
@@ -205,7 +196,6 @@ const week2: DayPlan[] = [
   {
     day_number: 10,
     week_number: 2,
-    weekday_label: '周三 · 第 10 天',
     day_type: 'rest',
     goals: [
       workoutGoal('训练', 'not_applicable'),
@@ -217,7 +207,6 @@ const week2: DayPlan[] = [
   {
     day_number: 11,
     week_number: 2,
-    weekday_label: '周四 · 第 11 天',
     day_type: 'workout',
     workout_id: 'workout-b',
     goals: [
@@ -232,7 +221,6 @@ const week2: DayPlan[] = [
   {
     day_number: 12,
     week_number: 2,
-    weekday_label: '周五 · 第 12 天',
     day_type: 'recovery',
     goals: [
       workoutGoal('训练', 'not_applicable'),
@@ -245,7 +233,6 @@ const week2: DayPlan[] = [
   {
     day_number: 13,
     week_number: 2,
-    weekday_label: '周六 · 第 13 天',
     day_type: 'low_impact',
     goals: [
       workoutGoal('训练', 'not_applicable'),
@@ -257,7 +244,6 @@ const week2: DayPlan[] = [
   {
     day_number: 14,
     week_number: 2,
-    weekday_label: '周日 · 第 14 天',
     day_type: 'full_review',
     goals: [
       workoutGoal('训练', 'not_applicable'),
