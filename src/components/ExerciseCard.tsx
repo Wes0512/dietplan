@@ -6,6 +6,19 @@
 import type { ExerciseStep } from '../types';
 import { copy } from '../i18n';
 
+/**
+ * 修复：workouts.seed.ts 里的 asset_path 是写死的"从网站根目录算起"的路径
+ * （比如 '/assets/exercises/xxx.svg'）。这在本地开发、或者网站部署在根域名
+ * 时没问题，但部署到 GitHub Pages 这种"项目子路径"（比如 /dietplan/）时，
+ * 浏览器会去根域名找图片，找不到就是 404，图片显示不出来。
+ * Vite 在构建时会把 `import.meta.env.BASE_URL` 自动替换成实际的部署路径
+ * （开发环境是 '/'，GitHub Pages 上是 '/dietplan/'），这里用它把
+ * 写死的根路径重新接上正确的部署前缀。
+ */
+function resolveAssetPath(path: string): string {
+  return `${import.meta.env.BASE_URL}${path.replace(/^\//, '')}`;
+}
+
 export function ExerciseCard({ step }: { step: ExerciseStep }) {
   const c = copy.exercise;
   return (
@@ -18,7 +31,7 @@ export function ExerciseCard({ step }: { step: ExerciseStep }) {
           {step.visual_demo.frames.map((frame) => (
             <div key={frame.asset_path} className="flex-shrink-0 w-32">
               <img
-                src={frame.asset_path}
+                src={resolveAssetPath(frame.asset_path)}
                 alt={frame.alt_text}
                 className="w-32 h-32 rounded-lg border bg-gray-50 object-contain"
               />
