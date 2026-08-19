@@ -497,6 +497,12 @@ function LunchWalkSection({ log, onSave }: { log: DailyLog | undefined; onSave: 
 // ---------------------------------------------------------
 // 12. Shoulder / Neck relax
 // ---------------------------------------------------------
+const SHOULDER_RELAX_STEPS = [
+  '肩膀慢慢向后画圈，10 次',
+  '头部轻轻倒向左边，感受右侧脖子的拉伸，保持 15 秒，换边',
+  '双手交握，向上伸展手臂，感受肩颈放松',
+];
+
 function ShoulderRelaxSection({ log, onSave }: { log: DailyLog | undefined; onSave: (p: Partial<DailyLog>) => Promise<DailyLog> }) {
   const { visible, flash } = useSaveIndicator();
   const done = log?.shoulder_relax_done ?? false;
@@ -508,6 +514,12 @@ function ShoulderRelaxSection({ log, onSave }: { log: DailyLog | undefined; onSa
 
   return (
     <Section title={`${c.shoulderRelax}${c.shoulderRelaxDuration}`} summary={done ? copy.goalStatus.completed : undefined}>
+      <ol className="list-decimal list-inside text-sm text-gray-600 space-y-1 mb-3">
+        {SHOULDER_RELAX_STEPS.map((step, i) => (
+          <li key={i}>{step}</li>
+        ))}
+      </ol>
+      <p className="text-xs text-gray-400 mb-3">动作放慢，出现尖锐疼痛请停止。</p>
       <button onClick={toggle} className={`rounded-md border px-4 py-2 text-sm ${done ? 'bg-green-600 text-white border-green-600' : ''}`}>
         {done ? `☑ ${c.markDone}` : `☐ ${c.markDone}`}
       </button>
