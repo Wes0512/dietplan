@@ -50,3 +50,16 @@ export function dayNumberToDate(program_start_date: string, day_number: number):
   d.setUTCDate(d.getUTCDate() + (day_number - 1));
   return d.toISOString().slice(0, 10);
 }
+
+const WEEKDAY_ZH = ['周日', '周一', '周二', '周三', '周四', '周五', '周六'];
+
+/**
+ * 修复：之前 Plan 页面用的是种子数据里写死的"周一/周二/..."文字，
+ * 隐含假设"用户一定是从周一开始 Day 1"——但 program_start_date
+ * 是用户实际开始使用 App 的那一天，可能是任何一个星期几。
+ * 这里改成从真实日期算出真正的星期几，不再依赖写死的文字。
+ */
+export function getWeekdayZh(dateStr: string): string {
+  const d = parseDateOnly(dateStr);
+  return WEEKDAY_ZH[d.getUTCDay()];
+}
