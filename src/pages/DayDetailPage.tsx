@@ -8,7 +8,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { userRepo } from '../repositories/userRepo';
 import { workoutRepo } from '../repositories/workoutRepo';
 import { getDayPlanByNumber } from '../services/planEngine';
-import { computeDayNumber, todayDateString } from '../services/dateEngine';
+import { computeDayNumber, dayNumberToDate, getWeekdayZh, todayDateString } from '../services/dateEngine';
 import { ExerciseCard } from '../components/ExerciseCard';
 import { SafetyBanner } from '../components/SafetyBanner';
 import { copy } from '../i18n';
@@ -63,6 +63,10 @@ export function DayDetailPage() {
     ? computeDayNumber(user.program_start_date, todayDateString()) === dayPlan.day_number
     : false;
 
+  const dayLabel = user
+    ? `${getWeekdayZh(dayNumberToDate(user.program_start_date, dayPlan.day_number))} · 第 ${dayPlan.day_number} 天`
+    : `第 ${dayPlan.day_number} 天`;
+
   return (
     <div className="pb-8">
       <div className="p-4 pb-2">
@@ -70,7 +74,7 @@ export function DayDetailPage() {
           {c.backToPlan}
         </button>
         <h1 className="text-xl font-semibold mt-2">
-          {dayPlan.weekday_label} {isToday && <span className="text-sm text-blue-600 font-normal">{c.todayTag}</span>}
+          {dayLabel} {isToday && <span className="text-sm text-blue-600 font-normal">{c.todayTag}</span>}
         </h1>
         <p className="text-sm text-gray-500">{DAY_TYPE_LABEL[dayPlan.day_type]}</p>
       </div>
