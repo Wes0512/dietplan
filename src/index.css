@@ -1,0 +1,39 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* =========================================================
+   Phase 8 — iPhone 安全区 / 移动端基础样式
+   ========================================================= */
+
+html, body, #root {
+  height: 100%;
+}
+
+body {
+  /* 避免橡皮筋滚动露出白边、避免长按选中文字造成误触 */
+  overscroll-behavior-y: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* 固定底部导航需要额外加上 Home Indicator 的安全距离，
+   否则在 iPhone X 及以后机型上，导航文字会被系统手势条遮住一部分。 */
+.safe-bottom-nav {
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+/* 页面内容底部预留空间，避免被固定导航栏挡住最后一行内容 */
+.safe-bottom-content {
+  padding-bottom: calc(4rem + env(safe-area-inset-bottom, 0px));
+}
+
+/* 顶部安全区（刘海/灵动岛），页面头部留白用 */
+.safe-top {
+  padding-top: env(safe-area-inset-top, 0px);
+}
+
+/* 触控目标最小尺寸，符合"舒适点击区域"要求 */
+.tap-target {
+  min-height: 44px;
+  min-width: 44px;
+}
