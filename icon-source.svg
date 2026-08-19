@@ -1,0 +1,15 @@
+<svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+  <!-- 圆角方形背景，延续 App 内主色调（蓝色）与安全提示/链接一致 -->
+  <rect width="512" height="512" rx="112" fill="#2563eb"/>
+
+  <!-- 中心白色圆圈：代表"今日目标已完成"这个核心交互动作 -->
+  <circle cx="256" cy="230" r="118" fill="none" stroke="#ffffff" stroke-width="22"/>
+
+  <!-- 对勾：呼应 App 内 GoalList / WorkoutSection 的完成状态图标 -->
+  <path d="M198 232 L238 274 L322 176" fill="none" stroke="#ffffff" stroke-width="24" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <!-- 底部三个小圆点：呼应底部四个导航分区的意象，同时代表"持续记录"的节奏感 -->
+  <circle cx="196" cy="400" r="16" fill="#ffffff"/>
+  <circle cx="256" cy="400" r="16" fill="#ffffff"/>
+  <circle cx="316" cy="400" r="16" fill="#ffffff"/>
+</svg>

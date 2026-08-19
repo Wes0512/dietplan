@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <!-- Phase 8：viewport-fit=cover 是 iPhone 安全区适配的前提，
+         配合 CSS 里的 env(safe-area-inset-*) 才能生效 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=1.0" />
+    <meta name="theme-color" content="#2563eb" />
+    <meta name="description" content="个人减脂教练 —— 12 周渐进式健康习惯养成 App" />
+
+    <!-- iOS "添加到主屏幕" 后以全屏 App 模式打开，而不是带 Safari 地址栏 -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="apple-mobile-web-app-title" content="减脂教练" />
+    <link rel="apple-touch-icon" href="%BASE_URL%icons/apple-touch-icon.png" />
+
+    <link rel="icon" type="image/png" sizes="192x192" href="%BASE_URL%icons/icon-192.png" />
+    <link rel="icon" type="image/png" sizes="512x512" href="%BASE_URL%icons/icon-512.png" />
+
+    <title>个人减脂教练</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
