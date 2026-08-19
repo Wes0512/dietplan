@@ -8,7 +8,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { userRepo } from '../repositories/userRepo';
 import { getPlanDayViews, type PlanDayView, type PlanDayVisualState } from '../services/planStatusEngine';
-import { computeDayNumber, todayDateString } from '../services/dateEngine';
+import { computeDayNumber, getWeekdayZh, todayDateString } from '../services/dateEngine';
 import { copy } from '../i18n';
 import type { User } from '../types';
 
@@ -90,7 +90,7 @@ export function PlanPage() {
                 className="w-full flex items-center justify-between px-4 py-3 text-left"
               >
                 <div>
-                  <div className="text-sm font-medium">{v.dayPlan.weekday_label}</div>
+                  <div className="text-sm font-medium">{getWeekdayZh(v.date)} · 第 {v.dayPlan.day_number} 天</div>
                   <div className="text-xs text-gray-500">{dayTitle(v)}</div>
                 </div>
                 <span className={`text-xs px-2 py-1 rounded-full ${STATE_STYLE[v.state]}`}>
