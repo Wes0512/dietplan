@@ -194,7 +194,6 @@ export interface DailyGoalStatus extends DailyGoalDefinition {
 export interface DayPlan {
   day_number: number; // 1-14
   week_number: 1 | 2;
-  weekday_label: string; // 'MON / DAY 1'
   day_type: 'workout' | 'recovery' | 'rest' | 'low_impact' | 'full_review';
   workout_id?: string; // 仅 day_type === 'workout' 时有值
   goals: DailyGoalDefinition[];
